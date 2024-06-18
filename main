@@ -114,6 +114,12 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
             }
             asdas=1;
         }
+        if(a<=900){
+            a++;
+        }
+        else{
+            a=0;
+        }
         repaint();
     }
     @Override
