@@ -1,0 +1,140 @@
+package ornek;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
+    int y=450;
+    int x=400;
+    int bulletx=-10;
+    boolean bulletxx=false;
+    boolean bullet=false;
+    int puan=0;
+     Random r=new Random();
+        int a=r.nextInt(900);
+       int circlebulletx=a+50;
+    boolean circlebulletxx=false;
+    int circley=50;
+    boolean circlebullet=true;
+       int asdas=0;
+       String puann;
+    public sddf(){
+        addMouseListener(this);
+        addMouseMotionListener(this);
+    }
+    public void random(){ 
+         this.a=r.nextInt(900);
+    }
+    public void paintComponent(Graphics g){
+        Thread t=new Thread(this);
+        puann="POINT:"+Integer.toString(puan);
+        if(asdas==1){
+            puann="YOU LOST";
+        }
+        super.paintComponent(g);
+        g.setColor(Color.BLUE);
+        g.fillRect(x, 450, 100, 100);
+        g.setColor(Color.RED);
+        g.fillOval(a, 0, 100, 100);
+        g.setFont(new Font("BOLD",Font.BOLD,50));
+                g.setColor(Color.ORANGE);
+                 if(circlebulletxx){
+            circlebulletx=a+50;
+        }
+        circlebulletxx=false;
+        g.drawString("|", circlebulletx, circley);
+        g.setColor(Color.BLACK);
+        if(bullet&&bulletxx){
+            bulletx=x+50;
+        }
+        bulletxx=false;
+        g.drawString("|", bulletx, y);
+        g.drawString(puann,0,200);
+        t.start();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(!bullet){
+        bullet=true;
+        bulletxx=true;
+        }
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(!bullet){
+        bullet=true;
+        bulletxx=true;
+        }
+    }
+    @Override
+    public void mouseReleased(MouseEvent e) {   
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    @Override
+    public void run() {
+        if(bullet){
+            y-=15;
+        }
+        try {
+            Thread.sleep(10);
+        } catch (Exception e) {
+        }
+        if(y<0){
+            bullet=false;
+            y=450;
+            bulletx=-10;
+        }
+        if(y>=0&&y<=100&&bulletx>=a&&bulletx<=a+100){
+            random();
+            puan++;
+            y=-10;
+        }
+        if(circlebullet){
+            circley+=15;   
+        }
+        if(circley>600){
+            circley=50;
+            circlebulletxx=true;
+        }
+        if(circley>=450&&circley<=500 &&circlebulletx>=x&&circlebulletx<=x+100){
+            if(asdas==0){
+            JOptionPane.showMessageDialog(this, "YOU LOST");
+            }
+            asdas=1;
+        }
+        repaint();
+    }
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        x=e.getX();   
+    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        x=e.getX();
+    }
+}
+public class Ornek extends JFrame {
+public Ornek(){
+    add(new sddf());
+}
+    public static void main(String[] args) {
+Ornek f=new Ornek();
+f.setVisible(true);
+f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+f.setSize(1000, 600);
+f.setResizable(false);
+f.setLocation(700, 300);
+    }
+}
