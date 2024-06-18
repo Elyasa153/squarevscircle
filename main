@@ -24,6 +24,8 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
     boolean circlebullet=true;
        int asdas=0;
        String puann;
+       int health=100;
+       boolean health2=false;
     public sddf(){
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -56,6 +58,8 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
         bulletxx=false;
         g.drawString("|", bulletx, y);
         g.drawString(puann,0,200);
+        g.drawString("HEALTH:"+health,650,200);
+        health2=false; 
         t.start();
     }
 
@@ -109,11 +113,16 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
             circlebulletxx=true;
         }
         if(circley>=450&&circley<=500 &&circlebulletx>=x&&circlebulletx<=x+100){
-            if(asdas==0){
-            JOptionPane.showMessageDialog(this, "YOU LOST");
+            circley=0;
+            circlebulletx=a+50;
+            if(health>0){
+            health-=20;
             }
-            asdas=1;
-        }
+            if(health==0){
+                JOptionPane.showMessageDialog(this, "YOU LOST");
+                asdas=1;
+            }
+        } 
         if(a<=900){
             a++;
         }
@@ -134,13 +143,13 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
 public class Ornek extends JFrame {
 public Ornek(){
     add(new sddf());
+    setVisible(true);
+setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+setSize(1000, 600);
+setResizable(false);
+setLocation(700, 300);
 }
     public static void main(String[] args) {
 Ornek f=new Ornek();
-f.setVisible(true);
-f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-f.setSize(1000, 600);
-f.setResizable(false);
-f.setLocation(700, 300);
     }
 }
