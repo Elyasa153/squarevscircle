@@ -21,11 +21,9 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
        int circlebulletx=a+50;
     boolean circlebulletxx=false;
     int circley=50;
-    boolean circlebullet=true;
        int asdas=0;
        String puann;
        int health=100;
-       boolean health2=false;
     public sddf(){
         addMouseListener(this);
         addMouseMotionListener(this);
@@ -59,10 +57,8 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
         g.drawString("|", bulletx, y);
         g.drawString(puann,0,200);
         g.drawString("HEALTH:"+health,650,200);
-        health2=false; 
         t.start();
     }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         if(!bullet){
@@ -105,9 +101,8 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
             puan++;
             y=-10;
         }
-        if(circlebullet){
             circley+=15;   
-        }
+        
         if(circley>600){
             circley=50;
             circlebulletxx=true;
@@ -118,13 +113,14 @@ class sddf extends JPanel implements MouseListener,Runnable,MouseMotionListener{
             if(health>0){
             health-=20;
             }
-            if(health==0){
+            if(health==0&&asdas==0){
                 JOptionPane.showMessageDialog(this, "YOU LOST");
                 asdas=1;
             }
         } 
         if(a<=900){
             a++;
+            
         }
         else{
             a=0;
